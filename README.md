@@ -114,33 +114,31 @@ await getModel('User')
     });
 ```
 
-| Method | Comments |
-| ------ | -------- |
+## Available methods
 
-/\*\*
+        |-------------------|---|
+        | getSequelizeInstance | |
+        |-------------------|---|
+        | Description | This function returns an instance of Sequelize, which is used to interact with the database. |
+        | Parameters | None |
+        | Returns | {Sequelize} An instance of Sequelize. |
+        |-------------------|---|
 
--   @function getSequelizeInstance
--   @description This function returns an instance of Sequelize, which is used to interact with the database.
--   @returns {Sequelize} An instance of Sequelize.
-    \*/
-    | getSequelizeInstance | |
-    // This section documents the `getModel` function.
-    // The `getModel` function is used to retrieve a Sequelize model by its name.
-    // It is typically used to interact with the database models defined in your Sequelize setup.
-    | getModel | |
-
-    /\*\*
-
-    -   @function getModels
-    -   @description Retrieves all the models defined in the Sequelize instance.
-    -   @returns {Object} An object containing all the Sequelize models.
-        \*/
+        |-------------------|---|
         | getModels | |
+        |-------------------|---|
+        | Description | Retrieves all the models defined in the Sequelize instance. |
+        | Parameters | None |
+        | Returns | {Object} An object containing all the Sequelize models. |
+        |-------------------|---|
+
+        |-------------------|---|
         | closeDBConnection | |
         |-------------------|---|
         | Description | Closes the current database connection. |
         | Parameters | None |
         | Returns | Promise<void> - Resolves when the connection is successfully closed. |
+        |-------------------|---|
 
 ## Contributing
 
