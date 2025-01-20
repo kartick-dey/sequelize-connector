@@ -40,41 +40,43 @@ const getModels = connector.getModels.bind(connector);
 const getModel = connector.getModel.bind(connector);
 const closeDBConnection = connector.closeDBConnection.bind(connector);
 
-
 export { dbInstance, getModels, getModel, closeDBConnection };
-
 ```
 
 ### Defining Models
+
 Define your models using Sequelize:
 
 ```javascript
 import { Sequelize, DataTypes } from 'sequelize';
 
 export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
-    const User = sequelize.define('Users', {
-        id: {
-            type: dataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
+    const User = sequelize.define(
+        'Users',
+        {
+            id: {
+                type: dataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+            },
+            name: {
+                type: dataTypes.STRING,
+                allowNull: false,
+            },
+            email: {
+                type: dataTypes.STRING,
+                allowNull: false,
+                unique: true,
+            },
         },
-        name: {
-            type: dataTypes.STRING,
-            allowNull: false,
+        {
+            tableName: 'users',
+            timestamps: false,
         },
-        email: {
-            type: dataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-    }, {
-        tableName: 'users',
-        timestamps: false
-    });
+    );
 
     return User;
 };
-
 ```
 
 ### Syncing the Database
@@ -93,20 +95,52 @@ Here's a sample code to create and retrieve data:
 
 ```javascript
 // Create a new user
-import {getModel} from '../db/index'
+import { getModel } from '../db/index';
 
-await getModel('User').create({
-    name: 'Kartick Dey',
-    email: 'kartick@kd.com',
-}).then(user => {
-    console.log('User created:', user.toJSON());
-});
+await getModel('User')
+    .create({
+        name: 'Kartick Dey',
+        email: 'kartick@kd.com',
+    })
+    .then((user) => {
+        console.log('User created:', user.toJSON());
+    });
 
 // Retrieve all users
-await getModel('User').findAll().then(users => {
-    console.log('All users:', JSON.stringify(users, null, 2));
-});
+await getModel('User')
+    .findAll()
+    .then((users) => {
+        console.log('All users:', JSON.stringify(users, null, 2));
+    });
 ```
+
+| Method | Comments |
+| ------ | -------- |
+
+/\*\*
+
+-   @function getSequelizeInstance
+-   @description This function returns an instance of Sequelize, which is used to interact with the database.
+-   @returns {Sequelize} An instance of Sequelize.
+    \*/
+    | getSequelizeInstance | |
+    // This section documents the `getModel` function.
+    // The `getModel` function is used to retrieve a Sequelize model by its name.
+    // It is typically used to interact with the database models defined in your Sequelize setup.
+    | getModel | |
+
+    /\*\*
+
+    -   @function getModels
+    -   @description Retrieves all the models defined in the Sequelize instance.
+    -   @returns {Object} An object containing all the Sequelize models.
+        \*/
+        | getModels | |
+        | closeDBConnection | |
+        |-------------------|---|
+        | Description | Closes the current database connection. |
+        | Parameters | None |
+        | Returns | Promise<void> - Resolves when the connection is successfully closed. |
 
 ## Contributing
 
